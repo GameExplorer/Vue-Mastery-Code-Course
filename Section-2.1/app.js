@@ -2,7 +2,40 @@ const vm = Vue.createApp({
     data() {
         return {
             firstName: 'John',
+            middleName: '',
             lastName: 'Doe',
+            url: 'https://github.com/GameExplorer',
+            raw_url: '<p><a href="https://github.com/GameExplorer" target="_blank">Link</a></p>',
+            age: 20,
+        }
+    },
+    methods: {
+        increment() {
+            this.age++;
+        },
+
+        updateLastName(msg, event) {
+            //event.preventDefault(); // prevents the default behavior of the event
+
+            //console.log(msg)
+            this.lastName = event.target.value;
+        },
+
+        updateMiddleName(event) {
+            this.middleName = event.target.value;
+        }
+    },
+    computed: {
+        fullName() {
+            console.log("Full name computed property was called")
+            return `${this.firstName} ${this.middleName} ${this.lastName.toUpperCase()}`;
+        },
+    },
+    watch: {
+        age(newVal, oldVal) {
+            setTimeout(() => {
+                this.age = 20;
+            }, 3000);
         }
     }
 }).mount('#app') // mount() is a method that mounts the app to the DOM
