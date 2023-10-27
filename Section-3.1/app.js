@@ -30,5 +30,6 @@ Vue.createApp({
 
             alert("CSS Copied to Clipboard")
         }
+            
     }
 }).mount('#app')
