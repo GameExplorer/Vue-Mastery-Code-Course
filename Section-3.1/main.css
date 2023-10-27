@@ -57,7 +57,7 @@ section.settings {
 .box {
   width: 150px;
   height: 150px;
-  background: #8d81f3;
+  background: #feff86;
 }
 
 button {
@@ -69,6 +69,14 @@ button {
   outline: none;
   border: none;
   margin-right: 10px;
+}
+
+button:hover {
+  background-color: #7067c2;
+}
+
+button:focus {
+  background-color: #433d74; 
 }
 
 label{
