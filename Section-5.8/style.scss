@@ -1,0 +1,17 @@
+h1{
+  color: #CC3244;  
+
+  // h1 span
+  span{
+    color: blue;
+  }
+
+  &:hover{
+    color: darken(#CC3244, 10%);
+  }
+}
+  
+::placeholder {
+  color: red;
+}
+  
