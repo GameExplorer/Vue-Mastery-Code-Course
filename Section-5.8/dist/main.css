@@ -1,0 +1,32 @@
+/*!***********************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./style.scss ***!
+  \***********************************************************************************************************************************************/
+h1 {
+  color: #CC3244;
+}
+h1 span {
+  color: blue;
+}
+h1:hover {
+  color: #a32836;
+}
+
+::-webkit-input-placeholder {
+  color: red;
+}
+
+::-moz-placeholder {
+  color: red;
+}
+
+:-ms-input-placeholder {
+  color: red;
+}
+
+::-ms-input-placeholder {
+  color: red;
+}
+
+::placeholder {
+  color: red;
+}
