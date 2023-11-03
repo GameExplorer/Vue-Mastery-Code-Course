@@ -79,7 +79,9 @@ export default {
 
   <button @click="addItem">Add</button>
   <ul>
-    <transition-group name="fade">
+    <transition-group name="fade"
+      enter-active-class="animate__animated animate__lightSpeedInRight"
+      leave-active-class="animate__animated animate__lightSpeedOutLeft">
     <li v-for="(number, index) in numbers" :key="number"
       @click="removeItem(index)">
       {{  number }}
@@ -89,6 +91,14 @@ export default {
 </template>
 
 <style>
+.animate__bounceUp {
+  position: absolute;
+}
+
+.animate__animated {
+  animation-duration: 0.5s;
+}
+
 li {
   font-size: 2em;
   cursor: pointer;  
