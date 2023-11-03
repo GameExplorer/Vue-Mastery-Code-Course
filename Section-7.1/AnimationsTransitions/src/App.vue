@@ -3,7 +3,40 @@ export default {
   name: 'App',
   data() {
     return {
-      flag: true,
+      flag: false,
+    }
+  },
+  methods: {
+    beforeEnter(el) {
+      console.log('before-Enter event fired', el);
+    },
+    enter(el, done) {
+      console.log('enter event fired', el)
+
+      const animation = el.animate([{ transform: "scale3d(0,0,0)"}, {}], {duration: 1000,}); //has two arguments first is keyframes and second is options
+
+      animation.onfinish = () => {
+        done(); // done is a callback function must call it
+      };
+
+    },
+    afterEnter(el) {
+      console.log('after-Enter event fired', el);
+    },
+    beforeLeave(el) {
+      console.log('before-Leave event fired', el);
+    },
+    leave(el, done) {
+      console.log('leave-event fired', el)
+
+      const animation = el.animate([{}, { transform: "scale3d(0,0,0)"}], {duration: 1000,}); //has two arguments first is keyframes and second is options
+
+      animation.onfinish = () => {
+        done(); // done is a callback function must call it
+      };
+    },
+    afterLeave(el) {
+      console.log('after-Leave event fired', el);
     }
   }
 }
@@ -19,9 +52,20 @@ export default {
   </Transition>
   -->
 
-  <Transition name="zoom" type="animation" appear>
-    <h2 v-if="flag">Hello</h2>
-  </Transition>
+  <!-- <Transition name="zoom" type="animation" appear>
+    <h2 v-if="flag">CSS Animation</h2>
+  </Transition> -->
+
+  <transition
+    @before-enter="beforeEnter"
+    @enter="enter"
+    @after-enter="afterEnter"
+    @before-leave="beforeLeave"
+    @leave="leave"
+    @after-leave="afterLeave"
+    :css="false"> <!-- if we set css to true then it will use css animation and if we set it to false then it will use js animation -->
+    <h2 v-if="flag">JS Animation</h2>
+  </transition>
 </template>
 
 <style>
