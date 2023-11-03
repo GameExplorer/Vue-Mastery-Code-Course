@@ -4,6 +4,7 @@ export default {
   data() {
     return {
       flag: false,
+      numbers: [1,2,3,4,5],
     }
   },
   methods: {
@@ -37,6 +38,14 @@ export default {
     },
     afterLeave(el) {
       console.log('after-Leave event fired', el);
+    },
+    addItem() {
+      const num = Math.floor(Math.random() * 100) + 1;
+      const index = Math.floor(Math.random() * this.numbers.length);
+      this.numbers.splice(index, 0, num);
+    },
+    removeItem(index) {
+      this.numbers.splice(index, 1);
     }
   }
 }
@@ -56,7 +65,7 @@ export default {
     <h2 v-if="flag">CSS Animation</h2>
   </Transition> -->
 
-  <transition
+  <!-- <transition
     @before-enter="beforeEnter"
     @enter="enter"
     @after-enter="afterEnter"
@@ -64,12 +73,26 @@ export default {
     @leave="leave"
     @after-leave="afterLeave"
     :css="true"
-    name="fade"><!-- if we set css to true then it will use css animation and if we set it to false then it will use js animation -->
-    <h2 v-if="flag">JS Animation</h2>
-  </transition>
+    name="fade">--><!-- if we set css to true then it will use css animation and if we set it to false then it will use js animation -->
+    <!--<h2 v-if="flag">JS Animation</h2>
+  </transition> -->
+
+  <button @click="addItem">Add</button>
+  <ul>
+    <transition-group name="fade">
+    <li v-for="(number, index) in numbers" :key="number"
+      @click="removeItem(index)">
+      {{  number }}
+    </li>
+    </transition-group>
+  </ul>
 </template>
 
 <style>
+li {
+  font-size: 2em;
+  cursor: pointer;  
+}
 h2 {
   width: 400px;
   padding: 2em;
@@ -88,6 +111,16 @@ h2 {
   transition: all 0.25s linear;
   opacity: 0;
 }
+
+/* For smoother animation of the list*/
+.fade-move {
+  transition: all 0.5s linear;
+}
+
+.fade-leave-active {
+  position: absolute;
+}
+/* ------------------------------- */
 
 .zoom-enter-active {
   animation: zoom-in 1s linear forwards;
