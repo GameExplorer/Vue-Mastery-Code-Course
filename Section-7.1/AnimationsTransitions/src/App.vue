@@ -12,8 +12,9 @@ export default {
 <template>
   <button type="button" @click="flag = !flag">Toggle</button>
 
-  <Transition name="fade">
-    <h2 v-if="flag">Hello Vue!</h2>
+  <Transition name="fade" mode="out-in">
+    <h2 v-if="flag" key="main">Hello Vue!</h2>
+    <h2 v-else key="secondary"> Another Vue!</h2>
 </Transition>
 </template>
 
