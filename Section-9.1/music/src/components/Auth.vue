@@ -90,15 +90,17 @@
             </button>
           </form>
           <!-- Registration Form -->
-          <form v-show="tab === 'register'">
+          <Vee-form v-show="tab === 'register'" :validation-schema="schema"> <!-- making required fields-->
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
-              <input
-                type="text"
+              <!-- using vee fields defined in validation.js -->
+              <Vee-fields
+                type="text" name="name"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Name"
               />
+              <ErrorMessage class="text-red-600" name="name"/> <!-- error message -->
             </div>
             <!-- Email -->
             <div class="mb-3">
@@ -160,7 +162,7 @@
             >
               Submit
             </button>
-          </form>
+          </Vee-form>
         </div>
       </div>
     </div>
@@ -175,13 +177,23 @@ export default {
   name: "Auth",
   data() {
     return {
-      tab: "login",
+      tab: "login", /* default tab is login */
+      schema: { /* validation schema */
+        name: "required", /* name is required */
+        email: "", /* email is required and so on... */
+        age: "",
+        password: "",
+        confirm_password: "",
+        country: "",
+        tos:"",
+      }
     };
   },
-  computed: {
-    ...mapState(useModalStore, ["hiddenClass"]),
-    ...mapWritableState(useModalStore, {
-      modalVisibility: "isOpen",
+
+  computed: { 
+    ...mapState(useModalStore, ["hiddenClass"]), /* map state to component */
+    ...mapWritableState(useModalStore, { /* map writable state to component */
+      modalVisibility: "isOpen", /* modalVisibility is the same as isOpen */
     }),
   },
 };
