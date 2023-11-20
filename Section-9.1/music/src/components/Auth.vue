@@ -105,56 +105,63 @@
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input
-                type="email"
+              <Vee-Fields
+                type="email" name="email"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Email"
               />
+              <ErrorMessage class="text-red-600" name="email" /> <!-- error message -->
             </div>
             <!-- Age -->
             <div class="mb-3">
               <label class="inline-block mb-2">Age</label>
-              <input
-                type="number"
+              <Vee-Fields
+                type="number" name="age"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
               />
+              <ErrorMessage class="text-red-600" name="age" /> <!-- error message -->
             </div>
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input
-                type="password"
+              <Vee-Fields
+                type="password" name="password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Password"
               />
+              <ErrorMessage class="text-red-600" name="password" /> <!-- error message -->
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Confirm Password</label>
-              <input
-                type="password"
+              <Vee-Fields
+                type="password" name="confirm_password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Confirm Password"
               />
+              <ErrorMessage class="text-red-600" name="confirm_password" /> <!-- error message -->
             </div>
             <!-- Country -->
             <div class="mb-3">
               <label class="inline-block mb-2">Country</label>
-              <select
+              <Vee-Fields as="select" name="country"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
               >
                 <option value="USA">USA</option>
                 <option value="Mexico">Mexico</option>
                 <option value="Germany">Germany</option>
-              </select>
+                <option value="Antarctica">Antartica</option>
+              </Vee-Fields>
+              <ErrorMessage class="text-red-600" name="country"/> <!-- error message -->
             </div>
             <!-- TOS -->
             <div class="mb-3 pl-6">
-              <input
-                type="checkbox"
+              <Vee-Fields
+                type="checkbox" name="tos" value="1"
                 class="w-4 h-4 float-left -ml-6 mt-1 rounded"
               />
               <label class="inline-block">Accept terms of service</label>
+              <ErrorMessage class="text-red-600" name="tos"/> <!-- error message -->
             </div>
             <button
               type="submit"
@@ -178,14 +185,14 @@ export default {
   data() {
     return {
       tab: "login", /* default tab is login */
-      schema: { /* validation schema */
-        name: "required", /* name is required */
-        email: "", /* email is required and so on... */
-        age: "",
-        password: "",
-        confirm_password: "",
-        country: "",
-        tos:"",
+      schema: { /* validation schema to add rules you need to pipe them | */
+        name: "required|min:3|max:100|alpha_spaces", /* name is required, min. characters, max characters, numbers aren't allowed */
+        email: "required|min:3|max:100|email", /* email is required and so on... */
+        age: "required|min_value:18|max_value:99", /* age is required, min value is 18, max value is 99 */
+        password: "required|min:8|max:25",
+        confirm_password: "confirmed:@password", /* password and confirm password are the same */
+        country: "required|excluded:Antarctica", /* country is required and Antarctica isn't allowed */
+        tos:"required",
       }
     };
   },
