@@ -62,8 +62,7 @@
             </li>
           </ul>
 
-          <AppLoginForm v-if="tab === 'login'" />
-          <AppRegisterForm v-else />
+        <component :is="tab === 'login' ? 'AppLoginForm' : 'AppRegisterForm'" />
         </div>
       </div>
     </div>
