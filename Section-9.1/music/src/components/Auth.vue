@@ -62,8 +62,9 @@
             </li>
           </ul>
 
-<app-login-form v-if="tab === 'login'" />
-          <app-register-form v-else />        </div>
+          <app-login-form v-if="tab === 'login'" />
+          <app-register-form v-else />
+        </div>
       </div>
     </div>
   </div>
