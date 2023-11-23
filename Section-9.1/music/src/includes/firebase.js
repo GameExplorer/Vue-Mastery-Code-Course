@@ -23,8 +23,10 @@ const storage = firebase.storage()
 const usersCollection = db.collection('users')
 //const songsCollection = db.collection('songs')
 
+const songsCollection = db.collection('songs')
+
 // export as named exports
-export { auth, db, usersCollection, storage }
+export { auth, db, usersCollection, storage, songsCollection }
 
 /*
 This file has firebase configuration and exports firebase auth and firestore
