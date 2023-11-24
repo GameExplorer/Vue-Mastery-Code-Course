@@ -7,70 +7,68 @@
   >
     {{ reg_alert_msg }}
   </div>
-  <Vee-form :validation-schema="schema" :initial-values="userData">
-    <!-- making required fields-->
+  <Vee-form
+    :validation-schema="schema"
+    @submit="register"
+    :initial-values="userData"
+  >
     <!-- Name -->
     <div class="mb-3">
       <label class="inline-block mb-2">Name</label>
-      <!-- using vee fields defined in validation.js -->
-      <Vee-fields
+      <Vee-Fields 
         type="text"
         name="name"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Enter Name"
       />
       <ErrorMessage class="text-red-600" name="name" />
-      <!-- error message -->
     </div>
     <!-- Email -->
     <div class="mb-3">
       <label class="inline-block mb-2">Email</label>
-      <Vee-Fields
-        type="email"
+      <Vee-Fields 
         name="email"
+        type="email"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Enter Email"
       />
       <ErrorMessage class="text-red-600" name="email" />
-      <!-- error message -->
     </div>
     <!-- Age -->
     <div class="mb-3">
       <label class="inline-block mb-2">Age</label>
-      <Vee-Fields
-        type="number"
+      <Vee-Fields 
         name="age"
+        type="number"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       />
       <ErrorMessage class="text-red-600" name="age" />
-      <!-- error message -->
     </div>
     <!-- Password -->
     <div class="mb-3">
       <label class="inline-block mb-2">Password</label>
       <Vee-Fields name="password" :bails="false" v-slot="{ field, errors }">
         <input
-          type="password"
           class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+          type="password"
           placeholder="Password"
           v-bind="field"
         />
-        <div class="text-red-600" v-for="error in errors" :key="error">{{ error }}</div>
-      </Vee-Fields>
-      <ErrorMessage class="text-red-600" name="password" />
-      <!-- error message -->
+        <div class="text-red-600" v-for="error in errors" :key="error">
+          {{ error }}
+        </div>
+      </Vee-Fields >
     </div>
     <!-- Confirm Password -->
     <div class="mb-3">
       <label class="inline-block mb-2">Confirm Password</label>
-      <Vee-Fields
-        type="password"
+      <Vee-Fields 
         name="confirm_password"
+        type="password"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Confirm Password"
       />
       <ErrorMessage class="text-red-600" name="confirm_password" />
-      <!-- error message -->
     </div>
     <!-- Country -->
     <div class="mb-3">
@@ -83,22 +81,20 @@
         <option value="USA">USA</option>
         <option value="Mexico">Mexico</option>
         <option value="Germany">Germany</option>
-        <option value="Antarctica">Antartica</option>
-      </Vee-Fields>
+        <option value="Antarctica">Antarctica</option>
+      </Vee-Fields >
       <ErrorMessage class="text-red-600" name="country" />
-      <!-- error message -->
     </div>
     <!-- TOS -->
     <div class="mb-3 pl-6">
-      <Vee-Fields
-        type="checkbox"
+      <Vee-Fields 
         name="tos"
         value="1"
+        type="checkbox"
         class="w-4 h-4 float-left -ml-6 mt-1 rounded"
       />
       <label class="inline-block">Accept terms of service</label>
-      <ErrorMessage class="text-red-600" name="tos" />
-      <!-- error message -->
+      <ErrorMessage class="text-red-600 block" name="tos" />
     </div>
     <button
       type="submit"
@@ -111,34 +107,31 @@
 </template>
 
 <script>
-import { mapActions } from 'pinia';
-import useUserStore from '@/stores/user';
- 
+import { mapActions } from "pinia";
+import useUserStore from "@/stores/user";
+
 export default {
   name: "RegisterForm",
   data() {
     return {
-      tab: 'login' /* default tab is login */,
+      tab: "login",
       schema: {
-        /* validation schema to add rules you need to pipe them | */
-        name: 'required|min:3|max:100|alpha_spaces' /* name is required, min. characters, max characters, numbers aren't allowed */,
-        email: 'required|min:3|max:100|email' /* email is required and so on... */,
-        age: 'required|min_value:18|max_value:99' /* age is required, min value is 18, max value is 99 */,
-        password: 'required|min:8|max:25|excluded:password',
-        confirm_password:
-          'passwords_mismatch:@password' /* password and confirm password are the same */,
-        country:
-          'required|country_excluded:Antarctica' /* country is required and Antarctica isn't allowed */,
-        tos: 'tos'
+        name: "required|min:3|max:100|alpha_spaces",
+        email: "required|min:3|max:100|email",
+        age: "required|min_value:18|max_value:100",
+        password: "required|min:9|max:100|excluded:password",
+        confirm_password: "passwords_mismatch:@password",
+        country: "required|country_excluded:Antarctica",
+        tos: "tos",
       },
       userData: {
-        country: 'USA'
+        country: "USA",
       },
       reg_in_submission: false,
       reg_show_alert: false,
-      reg_alert_variant: 'bg-blue-500',
-      reg_alert_msg: 'Please wait! Your account is being created...',
-    }
+      reg_alert_variant: "bg-blue-500",
+      reg_alert_msg: "Please wait! Your account is being created.",
+    };
   },
   methods: {
     ...mapActions(useUserStore, {
@@ -149,24 +142,21 @@ export default {
       this.reg_in_submission = true;
       this.reg_alert_variant = "bg-blue-500";
       this.reg_alert_msg = "Please wait! Your account is being created.";
-      console.log("values: ", values);
-  
+
       try {
         await this.createUser(values);
       } catch (error) {
-        console.log(error.message);
         this.reg_in_submission = false;
         this.reg_alert_variant = "bg-red-500";
         this.reg_alert_msg =
           "An unexpected error occurred. Please try again later.";
         return;
       }
- 
+
       this.reg_alert_variant = "bg-green-500";
       this.reg_alert_msg = "Success! Your account has been created.";
-
       window.location.reload();
     },
   },
-}
+};
 </script>

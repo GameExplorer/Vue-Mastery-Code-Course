@@ -20,13 +20,13 @@ const routes = [
     //alias: '/manage', // router will render manage component when user visits /manage-music
     path: '/manage-music',
     component: Manage,
-    beforeEnter: (to, from, next) => {
-      console.log("Manage route guard");
-      next();
-    },
-    meta: {
-      requiresAuth: true,
-    }
+    // beforeEnter: (to, from, next) => {
+    //   console.log("Manage route guard");
+    //   next();
+    // },
+    //meta: {
+    //  requiresAuth: true,
+    //}
   },
   {
     path: '/manage',
