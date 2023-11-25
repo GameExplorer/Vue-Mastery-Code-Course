@@ -25,8 +25,10 @@ const usersCollection = db.collection('users')
 
 const songsCollection = db.collection('songs')
 
+const commentsCollection = db.collection('comments')
+
 // export as named exports
-export { auth, db, usersCollection, storage, songsCollection }
+export { auth, db, usersCollection, storage, songsCollection, commentsCollection }
 
 /*
 This file has firebase configuration and exports firebase auth and firestore
