@@ -9,6 +9,7 @@ import router from './router'
 import VeeValidatePlugin from "./includes/validation"
 import { auth } from "./includes/firebase"
 import Icon from "./directives/icon.js"
+import i18n from "./includes/i18n"
 
 let app;
 
@@ -21,6 +22,7 @@ auth.onAuthStateChanged(() => {
         app.use(router)
         app.use(VeeValidatePlugin)
         app.directive('icon', Icon)
+        app.use(i18n)
 
         app.mount('#app')
     }
