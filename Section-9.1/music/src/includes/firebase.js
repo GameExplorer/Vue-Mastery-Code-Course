@@ -19,14 +19,19 @@ const auth = firebase.auth()
 const db = firebase.firestore()
 const storage = firebase.storage()
 
+db.enablePersistence().catch((error) => {
+  console.log(`Firebase persistence error ${error.code}`)
+});
 
 const usersCollection = db.collection('users')
 //const songsCollection = db.collection('songs')
 
 const songsCollection = db.collection('songs')
 
+const commentsCollection = db.collection('comments')
+
 // export as named exports
-export { auth, db, usersCollection, storage, songsCollection }
+export { auth, db, usersCollection, storage, songsCollection, commentsCollection }
 
 /*
 This file has firebase configuration and exports firebase auth and firestore

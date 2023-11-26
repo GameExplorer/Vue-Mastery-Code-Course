@@ -1,0 +1,9 @@
+{
+  "home": {
+    "listen": "Poslušaj dobro glasbo!",
+    "songs": "Glasba"
+  },
+  "manage": {
+    "my_songs": "Moja glasba"
+  }
+}
