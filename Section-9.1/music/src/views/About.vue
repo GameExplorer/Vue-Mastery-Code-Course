@@ -1,1 +1,1 @@
-<template>This is about page</template>
+<template>This is about page <base-button /></template>

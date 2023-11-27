@@ -18,7 +18,7 @@
           <!-- Song Info -->
           <div class="text-3xl font-bold">{{ song.modified_name }}</div>
           <div>{{ song.genre }}</div>
-          <div class="song-price"> {{ $n(4, "currency", "ja") }}</div>
+          <div class="song-price">{{ $n(4, 'currency', 'ja') }}</div>
         </div>
       </div>
     </section>
@@ -27,7 +27,9 @@
       <div class="bg-white rounded border border-gray-200 relative flex flex-col">
         <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
           <!-- Comment Count -->
-          <span class="card-title">{{ $tc("song.comment_count", song.comment_count,{ count: song.comment_count }) }}</span>
+          <span class="card-title">{{
+            $tc('song.comment_count', song.comment_count, { count: song.comment_count })
+          }}</span>
           <i class="fa fa-comments float-right text-green-400 text-2xl"></i>
         </div>
         <div class="p-6">
@@ -119,20 +121,22 @@ export default {
       })
     }
   },
-  async created() {
-    const docSnapshot = await songsCollection.doc(this.$route.params.id).get()
+  async beforeRouteEnter(to, from, next) {
+    const docSnapshot = await songsCollection.doc(to.params.id).get()
 
-    if (!docSnapshot.exists) {
-      this.$router.push({ name: 'home' })
-      return
-    }
+    next((vm) => {
+      if (!docSnapshot.exists) {
+        vm.$router.push({ name: 'home' })
+        return
+      }
 
-    const { sort } = this.$route.query
+      const { sort } = vm.$route.query
 
-    this.sort = sort === '1' || sort === '2' ? sort : '1'
+      vm.sort = sort === '1' || sort === '2' ? sort : '1'
 
-    this.song = docSnapshot.data()
-    this.getComments()
+      vm.song = docSnapshot.data()
+      vm.getComments()
+    })
   },
 
   methods: {
