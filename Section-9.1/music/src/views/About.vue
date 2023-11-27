@@ -1,1 +1,3 @@
-<template>This is about page <base-button /></template>
+<template>This is about page 
+<!-- <base-button /> --> 
+</template>
