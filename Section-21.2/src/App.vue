@@ -1,9 +1,9 @@
 <template>
   <div>
-    <p>{{  num  }}</p>
-    <p>{{  double }}</p>
+    <p>{{ num }}</p>
+    <p>{{ double }}</p>
     <button type="button" @click.prevent="increment">Click me</button>
-    <p>{{  user.name }}</p>
+    <p>{{ user.name }}</p>
     <p>
       <input type="text" v-model="phrase" />
     </p>
@@ -17,52 +17,36 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, reactive, onBeforeMount, onMounted } from "vue";
 import AppAlert from "@/components/Alert.vue";
-import { useNumber } from "@/hooks/number"
-import { usePhrase } from "@/hooks/phrase"
+import { useNumber } from "@/hooks/number";
+import { usePhrase } from "@/hooks/phrase";
 
-export default {
-  name: "App",
-  components: {
-    AppAlert,
-  },
-  setup() {
-    const btn = ref(null);
+const btn = ref(null);
 
-    onBeforeMount(() => {
-      console.log("onBeforeMount");
-    });
-    onMounted(() => {
-      console.log("onMounted");
+onBeforeMount(() => {
+  console.log("onBeforeMount");
+});
+onMounted(() => {
+  console.log("onMounted");
 
-      btn.value.addEventListener('click', () => {
-        console.log('button was clicked');
-      });
-    });
-    
-    const user = reactive({
-      name: "Mike",
-      age: 21,
-    });
+  btn.value.addEventListener("click", () => {
+    console.log("button was clicked");
+  });
+});
 
-    setTimeout(() => {
-      user.name = "Bob";
-    }, 4000);
+const user = reactive({
+  name: "Mike",
+  age: 21,
+});
 
-    const { num, increment, double } = useNumber();
-    const { phrase, reversedPhrase } = usePhrase();
-    
-    return {
-      num,
-      increment,
-      user,
-      phrase,
-      reversedPhrase,
-      double,
-      btn,
-    }
-  },
-};
+setTimeout(() => {
+  user.name = "Bob";
+}, 4000);
+
+const { num, increment, double } = useNumber();
+const { phrase, reversedPhrase } = usePhrase();
+
+const { name } = toRefs(user);
 </script>
